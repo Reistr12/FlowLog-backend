@@ -26,6 +26,12 @@ export class UpdateTaskUseCase {
             throw new BadRequestException('Tarefas de tipo recorrente devem ser de frequência diária');
         }
         
-        return this.taskRepository.update(taskId, updateTaskDto);
+        const response = await this.taskRepository.update(taskId, updateTaskDto);
+
+        if (!response.success) {
+            throw new NotFoundException(response.error || 'Erro ao atualizar a tarefa');
+        }
+
+        return { success: true, message: 'Tarefa atualizada com sucesso' };
     }
 }
