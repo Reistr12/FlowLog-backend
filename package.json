@@ -1,0 +1,10 @@
+{
+  "name": "flow-log-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "migration:generate": "cd api && node scripts/migration-generate.js",
+    "migration:run": "cd api && yarn migration:run",
+    "migration:revert": "cd api && yarn migration:revert"
+  }
+}
