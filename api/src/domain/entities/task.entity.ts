@@ -16,9 +16,6 @@ export class TaskEntity {
     @Column({ nullable: true })
     description?: string;
 
-    @Column()
-    userId: string;
-
     @ManyToOne(() => UserEntity)
     @JoinColumn({ name: 'userId' })
     user: UserEntity;
@@ -37,9 +34,6 @@ export class TaskEntity {
 
     @Column({ default: 0 })
     streak: number;
-
-    @OneToMany(() => NotificationEntity, notification => notification.task)
-    notifications: NotificationEntity[];
 
     @CreateDateColumn()
     createdAt: Date;

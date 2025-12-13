@@ -10,7 +10,7 @@ export class NotificationEntity {
     })
     id: string;
 
-    @ManyToOne(() => TaskEntity, task => task.notifications)
+    @ManyToOne(() => TaskEntity, task => task.id)
     @JoinColumn({ name: 'taskId' })
     task: TaskEntity;
 

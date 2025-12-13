@@ -4,7 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import databaseConfig from './configs/database/database.config';
 import { AuthModule } from './auth/auth.module';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { TaskModule } from './presentation/controllers/tasks/task.module';
 
 @Module({
   imports: [
@@ -12,7 +12,6 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
       isGlobal: true,
       load: [databaseConfig],
     }),
-
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -28,12 +27,7 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
       }),
     }),
     AuthModule,
-  ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
+    TaskModule
   ],
 })
 export class AppModule {}
