@@ -91,12 +91,16 @@ export class TaskRepository implements ITaskRepository {
         }
     }
 
-    async update(id: string, updateTaskDto: UpdateTaskDto): Promise<{ success: boolean; error?: string }> {
+    async update(id: string, updateTaskDto: UpdateTaskDto): Promise<{ task: TaskEntity | null; error?: string }> {
         try {
-            const result = await this.repository.update(id, updateTaskDto);
-            return { success: (result?.affected ?? 0) > 0 };
+            await this.repository.update(id, updateTaskDto);
+            const updatedTask = await this.repository.findOne({
+                where: { id },
+                relations: ['user'],
+            });
+            return { task: updatedTask };
         } catch (error) {
-            return { success: false, error: (error as Error).message };
+            return { task: null, error: (error as Error).message };
         }
     }
 }

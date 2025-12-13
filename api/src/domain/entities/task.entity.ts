@@ -29,6 +29,9 @@ export class TaskEntity {
     @Column()
     startDate: Date;
 
+    @Column({ default: 'pending' })
+    status: 'pending' | 'completed' | 'missed';
+    
     @Column({ nullable: true })
     endDate?: Date;
 

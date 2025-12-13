@@ -1,4 +1,4 @@
-import { IsDateString, IsEnum, IsOptional, IsString, ValidateIf } from "class-validator";
+import { IsDateString, IsEnum, IsNumber, IsOptional, IsString, ValidateIf } from "class-validator";
 
 export class UpdateTaskDto {
     @IsOptional()
@@ -17,6 +17,14 @@ export class UpdateTaskDto {
     @IsEnum(['daily', 'weekly', 'monthly'])
     @ValidateIf((o) => o.type === 'recorrente')
     frequency?: 'daily' | 'weekly' | 'monthly';
+
+    @IsOptional()
+    @IsEnum(['pending', 'completed', 'missed'])
+    status?: 'pending' | 'completed' | 'missed';
+
+    @IsOptional()
+    @IsNumber()
+    streak?: number;
     
     @IsOptional()
     @IsDateString()

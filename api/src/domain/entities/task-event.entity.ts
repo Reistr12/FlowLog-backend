@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { TaskEntity } from "./task.entity";
+import { UserEntity } from "./user.entity";
 
 @Entity('task_events')
 export class TaskEventEntity {
@@ -15,6 +16,10 @@ export class TaskEventEntity {
 
     @Column()
     eventType: 'created' | 'updated' | 'deleted';
+
+    @ManyToOne(() => UserEntity)
+    @JoinColumn({ name: 'userId' })
+    user: UserEntity;
 
     @CreateDateColumn()
     createdAt: Date;

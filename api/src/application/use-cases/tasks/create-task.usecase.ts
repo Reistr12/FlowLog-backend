@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { CreateTaskDto } from "src/application/DTOs/tasks/createTask.dto";
+import { TaskEventEntity } from "src/domain/entities/task-event.entity";
 import { TaskEntity } from "src/domain/entities/task.entity";
 import { UserEntity } from "src/domain/entities/user.entity";
 import { TaskRepository } from "src/infra/repositories/task.repository";
@@ -23,6 +24,13 @@ export class CreateTaskUseCase {
         console.error(`Erro ao criar a tarefa: ${response.error}`);
         throw new BadRequestException('Erro ao criar a tarefa');
     }
+
+    const taskEvent = new TaskEventEntity();
+    taskEvent.task = response.task;
+    taskEvent.eventType = 'created';
+    taskEvent.user = userInfo;
+    taskEvent.createdAt = new Date();
+    taskEvent.updatedAt = new Date();
 
     return response.task as TaskEntity;
   }

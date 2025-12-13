@@ -10,5 +10,5 @@ export interface ITaskRepository {
 
     findAll(filters?: TaskFilter, userId?: string): Promise<{ tasks: TaskEntity[]; error?: string }>;
     
-    update(id: string, updateTaskDto: UpdateTaskDto): Promise<{ success: boolean; error?: string }>
+    update(id: string, updateTaskDto: UpdateTaskDto): Promise<{ task: TaskEntity | null; error?: string }>;
 }
