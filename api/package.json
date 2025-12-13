@@ -20,9 +20,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:all": "npm run test:unit && npm run test:e2e",
-    "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -d data-source.ts",
-    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d data-source.ts",
-    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d data-source.ts"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d data-source.ts",
+    "migration:create": "node scripts/create-migration.js",
+    "migration:run": "yarn typeorm -- migration:run",
+    "migration:revert": "yarn typeorm -- migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -31,6 +32,7 @@
     "@nestjs/jwt": "^11.0.2",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/schedule": "^6.1.0",
     "@nestjs/typeorm": "^11.0.0",
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
@@ -49,6 +51,7 @@
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
     "@types/bcrypt": "^6.0.0",
+    "@types/cron": "^2.4.3",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.19.2",
